@@ -25,15 +25,21 @@ Widget brandName() {
 }
 
 Widget wallpapersList({List<WallpaperModel> wallpapers, context}) {
+  axisCounter(){
+    int x=3;
+    return x;
+  }
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 16),
     child: GridView.count(
+
       shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      crossAxisCount: 2,
+      scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
+      crossAxisCount: axisCounter(),
       childAspectRatio: 0.6,
-      mainAxisSpacing: 6.0,
-      crossAxisSpacing: 6.0,
+      mainAxisSpacing: 10.0,
+      crossAxisSpacing: 10.0,
       children: wallpapers.map((wallpaper) {
         return GridTile(
           child: GestureDetector(

@@ -10,14 +10,12 @@ import 'package:WallEngine/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  
   List<CategoriesModel> categories = new List();
   List<WallpaperModel> wallpapers = new List();
   List<WallpaperModel> stuff = new List();
@@ -26,7 +24,7 @@ class _HomeState extends State<Home> {
 
   getTrendingWallpapers() async {
     int pageNumber = 1;
-  
+
     var response = await http.get(
         "https://api.pexels.com/v1/curated?per_page=80&page=$pageNumber",
         headers: {"Authorization": apiKey});
@@ -40,7 +38,6 @@ class _HomeState extends State<Home> {
       wallpapers.add(wallpaperModel);
     });
 
-
     setState(() {});
   }
 
@@ -53,32 +50,40 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      // backgroundColor: Colors.green,
-      // child: Text("🤘", style: TextStyle(fontSize: 20),),
-      //   onPressed: () => debugPrint("hello")),
       drawer: Drawer(
-        elevation: 0.0,
-        child: Container(
-          color: Colors.black,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AboutPage())),
+          elevation: 0.0,
+          child: Container(
+            color: Colors.black,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AboutPage())),
                   child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  Icon(Icons.info, color: Colors.white,),
-                  SizedBox(width:20),
-                  Text("About", style: TextStyle(color: Colors.white, fontSize: 20,),)
-                ],),
-              )
-            ],
-          ),
-        )
-      ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.info,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 20),
+                      Text(
+                        "About",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )),
       backgroundColor: Colors.black,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0),
@@ -94,7 +99,7 @@ class _HomeState extends State<Home> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: Color(0xff696969),
+                  color: Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(30)),
               padding: EdgeInsets.symmetric(horizontal: 20),
               margin: EdgeInsets.symmetric(horizontal: 24),
@@ -106,7 +111,7 @@ class _HomeState extends State<Home> {
                       style: TextStyle(color: Colors.amber),
                       cursorColor: Colors.amber,
                       decoration: InputDecoration(
-                        hintText: "Search the wallpapers 💝 🚀 ",
+                        hintText: "Search 🚀 ",
                         hintStyle: TextStyle(color: Colors.white),
                         border: InputBorder.none,
                       ),
@@ -131,13 +136,18 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 16),
-            Container(
-              alignment: Alignment.topLeft,
-              padding: EdgeInsets.all(20),
-              child: Text(
-                "Categories",
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
+            Row(
+              children: [
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    "Categories",
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                ),
+                SizedBox(width: 250),
+              ],
             ),
             SizedBox(height: 16),
             Container(
@@ -153,13 +163,6 @@ class _HomeState extends State<Home> {
                     imgUrl: categories[index].imgUrl,
                   );
                 },
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              child: Text(
-                "Trending",
-                style: TextStyle(color: Colors.white, fontSize: 30),
               ),
             ),
             SizedBox(height: 16),

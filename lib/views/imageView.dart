@@ -78,7 +78,7 @@ class _ImageViewState extends State<ImageView> {
                         Navigator.pop(context);
                       },
                       child: Container(
-                          child: Text("Cancel",
+                          child: Text("Close",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
