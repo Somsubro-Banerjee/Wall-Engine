@@ -9,7 +9,7 @@ import 'package:WallEngine/views/search.dart';
 import 'package:WallEngine/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:cached_network_image/cached_network_image.dart';
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -24,11 +24,12 @@ class _HomeState extends State<Home> {
 
   getTrendingWallpapers() async {
     int pageNumber = 1;
-
+ 
     var response = await http.get(
         "https://api.pexels.com/v1/curated?per_page=80&page=$pageNumber",
         headers: {"Authorization": apiKey});
-    // print(response.body.toString());
+        
+    print(response.body.toString());
 
     Map<String, dynamic> jsonData = jsonDecode(response.body);
     jsonData["photos"].forEach((element) {
@@ -40,6 +41,8 @@ class _HomeState extends State<Home> {
 
     setState(() {});
   }
+
+  
 
   @override
   void initState() {
@@ -231,3 +234,5 @@ class categoryTile extends StatelessWidget {
     );
   }
 }
+
+

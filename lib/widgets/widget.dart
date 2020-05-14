@@ -1,4 +1,5 @@
 import 'package:WallEngine/views/imageView.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:WallEngine/model/wallpapermodel.dart';
 
@@ -30,6 +31,7 @@ Widget wallpapersList({List<WallpaperModel> wallpapers, context}) {
     return x;
   }
   return Container(
+    
     padding: EdgeInsets.symmetric(horizontal: 16),
     child: GridView.count(
 
@@ -51,16 +53,30 @@ Widget wallpapersList({List<WallpaperModel> wallpapers, context}) {
                             imgUrl: wallpaper.src.portrait,
                           )));
             },
-            child: Container(
-              child: Hero(
-                tag: wallpaper.src.portrait,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      wallpaper.src.portrait,
-                      fit: BoxFit.cover,
-                    )),
-              ),
+            child: Stack(
+              children: [
+                CachedNetworkImage(
+                  imageUrl: wallpaper.src.portrait,
+                  imageBuilder: (context, imageProvider) => Container(
+                  child: Hero(                      
+                    tag: wallpaper.src.portrait,
+                    child: ClipRRect(
+                        
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          wallpaper.src.portrait,
+                          fit: BoxFit.cover,
+                        )
+                        ),
+                  ),
+                ),
+                fadeInCurve: Curves.easeIn,
+                fadeOutCurve: Curves.easeInOut,
+                fadeInDuration: Duration(milliseconds: 2000),
+                fadeOutDuration: Duration(milliseconds: 2000),
+                placeholder: (context, url) => Center(child: CircularProgressIndicator()), 
+                  ),
+              ],
             ),
           ),
         );
@@ -68,3 +84,6 @@ Widget wallpapersList({List<WallpaperModel> wallpapers, context}) {
     ),
   );
 }
+
+
+
