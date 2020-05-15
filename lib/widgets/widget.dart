@@ -1,11 +1,8 @@
-import 'dart:io';
-import 'package:WallEngine/model/CaegoriesModel.dart';
-import 'package:WallEngine/views/home.dart';
 import 'package:WallEngine/views/imageView.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:WallEngine/model/wallpapermodel.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 int counter = 3;
 
 Widget brandName() {
@@ -45,121 +42,59 @@ Widget wallpapersList({List<WallpaperModel> wallpapers, context}) {
         return GridTile(
           child: GestureDetector(
             onTap: () {
+              // print(wallpaper.src.portrait);
+              print(wallpapers.length);
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => ImageView(
                             imgUrl: wallpaper.src.portrait,
-                          )));
+                          )
+                          )
+                          );
             },
             child: Stack(
               children: [
-                CachedNetworkImage(
-                  imageUrl: wallpaper.src.portrait,
-                  imageBuilder: (context, imageProvider) => Container(
-                    child: Hero(
-                      tag: wallpaper.src.portrait,
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: CachedNetworkImage(
-                                imageUrl: wallpaper.src.portrait,
-                                fit: BoxFit.cover,
-                              )
-                          ),
-                          // Container(
-                          //   margin: EdgeInsets.symmetric(horizontal:80, vertical: 140),
-                          //   child: IconButton(icon: Icon(Icons.thumb_up,
-                          //   color: Colors.white,
-                          //   ), 
-                          //   onPressed: (){},
-                          //   ),
-                          // )
-                        ],
+                GestureDetector(
+                    child: CachedNetworkImage(
+                    imageUrl: wallpaper.src.portrait,
+                    imageBuilder: (context, imageProvider) => Container(
+                      child: Hero(
+                        tag: wallpaper.src.portrait,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: CachedNetworkImage(
+                                  imageUrl: wallpaper.src.portrait,
+                                  fit: BoxFit.cover,
+                                )
+                            ),
+                          ],
+                        ),
                       ),
                     ),
+                    fadeInCurve: Curves.elasticIn,
+                    fadeOutCurve: Curves.elasticOut,
+                    fadeInDuration: Duration(milliseconds: 4000),
+                    fadeOutDuration: Duration(milliseconds: 4000),
+                    placeholder: (context, url) =>
+                        Center(child: SpinKitThreeBounce(
+                          color: Colors.blue,
+                          size: 30,
+                        )),
                   ),
-                  fadeInCurve: Curves.elasticIn,
-                  fadeOutCurve: Curves.elasticOut,
-                  fadeInDuration: Duration(milliseconds: 4000),
-                  fadeOutDuration: Duration(milliseconds: 4000),
-                  placeholder: (context, url) =>
-                      Center(child: CircularProgressIndicator()),
                 ),
               ],
             ),
           ),
         );
-      }).toList(),
+      }
+      ).toList(),
     ),
   );
 }
-// Widget wallpapersNewList({List<WallpaperModel> wallpapers, context}) {
-//   return Container(
-//     padding: EdgeInsets.symmetric(horizontal: 16),
-//     child: GridView.count(
-//       shrinkWrap: true,
-//       scrollDirection: Axis.vertical,
-//       physics: BouncingScrollPhysics(),
-//       crossAxisCount: counter,
-//       childAspectRatio: 0.67,
-//       mainAxisSpacing: 6.0,
-//       crossAxisSpacing: 6.0,
-//       children: wallpapers.map((wallpaper) {
-//         return GridTile(
-//           child: GestureDetector(
-//             onTap: () {
-//               Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                       builder: (context) => ImageView(
-//                             imgUrl: wallpaper.src.small,
-//                           )));
-//             },
-//             child: Stack(
-//               children: [
-//                 CachedNetworkImage(
-//                   imageUrl: wallpaper.src.portrait,
-//                   imageBuilder: (context, imageProvider) => Container(
-//                     child: Hero(
-//                       tag: wallpaper.src.portrait,
-//                       child: Stack(
-//                         children: [
-//                           ClipRRect(
-//                               borderRadius: BorderRadius.circular(20),
-//                               child: CachedNetworkImage(
-//                                 imageUrl: wallpaper.src.portrait,
-//                                 fit: BoxFit.cover,
-//                               )
-//                           ),
-//                           // Container(
-//                           //   margin: EdgeInsets.symmetric(horizontal:80, vertical: 140),
-//                           //   child: IconButton(icon: Icon(Icons.thumb_up,
-//                           //   color: Colors.white,
-//                           //   ), 
-//                           //   onPressed: (){},
-//                           //   ),
-//                           // )
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                   fadeInCurve: Curves.elasticIn,
-//                   fadeOutCurve: Curves.elasticOut,
-//                   fadeInDuration: Duration(milliseconds: 4000),
-//                   fadeOutDuration: Duration(milliseconds: 4000),
-//                   placeholder: (context, url) =>
-//                       Center(child: CircularProgressIndicator()),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         );
-//       }).toList(),
-//     ),
-//   );
-// }
+
 
 Widget categoryRow() {
   return Container(

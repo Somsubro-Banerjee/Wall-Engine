@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:flushbar/flushbar.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class ImageView extends StatefulWidget {
 
@@ -48,6 +48,7 @@ class _ImageViewState extends State<ImageView> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        CircularProgressIndicator();
                         _save();
                         // Navigator.pop(context);
                       },
@@ -61,7 +62,9 @@ class _ImageViewState extends State<ImageView> {
                             ),
                             borderRadius: BorderRadius.circular(30),
                             gradient: LinearGradient(
-                                colors: [Colors.black45, Colors.black38])),
+                                colors: [Colors.black45, Colors.black38]
+                                )
+                                ),
                         child: Column(
                           children: [
                             Text(

@@ -9,7 +9,6 @@ import 'package:WallEngine/views/search.dart';
 import 'package:WallEngine/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:cached_network_image/cached_network_image.dart';
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -167,6 +166,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 16),
+            
             wallpapersList(wallpapers: wallpapers, context: context),
             // wallpapersNewList(wallpapers: wallpapers, context: context),
           ],
@@ -208,7 +208,9 @@ class categoryTile extends StatelessWidget {
                         height: 80,
                         width: 150,
                         fit: BoxFit.cover,
-                      ))),
+                      )
+                      )
+                      ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
