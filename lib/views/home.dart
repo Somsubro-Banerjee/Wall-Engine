@@ -24,10 +24,13 @@ class _HomeState extends State<Home> {
 
   getTrendingWallpapers() async {
     int pageNumber = 1;
- 
+    
     var response = await http.get(
         "https://api.pexels.com/v1/curated?per_page=80&page=$pageNumber",
-        headers: {"Authorization": apiKey});
+        headers: {
+          "Authorization": apiKey,
+          }
+        );
         
     print(response.body.toString());
 
@@ -53,7 +56,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
+  Color buttonColor = Colors.white;
 
     return Scaffold(
       drawer: Drawer(
@@ -127,7 +130,9 @@ class _HomeState extends State<Home> {
                             MaterialPageRoute(
                                 builder: (context) => Search(
                                       searchQuery: searchController.text,
-                                    )));
+                                    )
+                                    )
+                                    );
                       },
                       child: Container(
                         child: Icon(
@@ -141,15 +146,8 @@ class _HomeState extends State<Home> {
             SizedBox(height: 16),
             Row(
               children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: EdgeInsets.all(20),
-                  child: Text(
-                    "Categories",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                ),
-                SizedBox(width: 250),
+                categoryRow(),
+                SizedBox(width: 200),           
               ],
             ),
             SizedBox(height: 16),
@@ -170,6 +168,7 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 16),
             wallpapersList(wallpapers: wallpapers, context: context),
+            // wallpapersNewList(wallpapers: wallpapers, context: context),
           ],
         )),
       ),
