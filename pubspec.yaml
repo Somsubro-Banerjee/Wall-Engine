@@ -40,7 +40,7 @@ dependencies:
   flutter_advanced_networkimage: any
   flutter_swiper: ^1.1.6
   share: ^0.6.4+2
-  
+  flutter_typeahead: ^1.8.1
 
 
   # The following adds the Cupertino Icons font to your application.

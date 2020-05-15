@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:WallEngine/views/home.dart';
+import 'package:WallEngine/views/homeRecreated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -16,7 +15,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Timer(
         Duration(seconds: 5),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Home())));
+            context, MaterialPageRoute(builder: (context) => HomeRecrated())));
   }
 
   @override

@@ -11,12 +11,12 @@ Widget brandName() {
     children: [
       Text(
         "Wall",
-        style: TextStyle(color: Colors.white, fontSize: 28, letterSpacing: 3),
+        style: TextStyle(color: Colors.white, fontSize: 23, letterSpacing: 3),
       ),
       SizedBox(width: 10),
       Text(
         "Engine",
-        style: TextStyle(color: Colors.amber, fontSize: 13, letterSpacing: 3),
+        style: TextStyle(color: Colors.amber, fontSize: 10, letterSpacing: 3),
       ),
     ],
   );

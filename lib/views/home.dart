@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
   Color buttonColor = Colors.white;
-
+   final key = new GlobalKey<ScaffoldState>();
     return Scaffold(
       drawer: Drawer(
           elevation: 0.0,
@@ -99,78 +99,101 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-            child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade900,
-                  borderRadius: BorderRadius.circular(30)),
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              margin: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: searchController,
-                      style: TextStyle(color: Colors.amber),
-                      cursorColor: Colors.amber,
-                      decoration: InputDecoration(
-                        hintText: "Search 🚀 ",
-                        hintStyle: TextStyle(color: Colors.white),
-                        border: InputBorder.none,
+              child: Stack(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height/14,
+                  width: MediaQuery.of(context).size.width,
+                  color: Color(0xff694ba1),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade900,
+                      borderRadius: BorderRadius.circular(30)),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                        
+                          autocorrect: true,
+                          enableInteractiveSelection: true, 
+                          // autofillHints: ,
+                          controller: searchController,
+                          style: TextStyle(color: Colors.amber),
+                          cursorColor: Colors.amber,
+                          decoration: InputDecoration(
+                            hintText: "Search 🚀 ",
+                            hintStyle: TextStyle(color: Colors.white),
+                            border: InputBorder.none,
+                          ),
+                        ),
                       ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Search(
+                                          searchQuery: searchController.text,
+                                        )
+                                        )
+                                        );
+                          },
+                          child: Container(
+                            child: Icon(
+                              Icons.search,
+                              color: Colors.white,
+                            ),
+                          )
+                          )
+                    ],
+                  ),
+              ),
+                ),
+             Container(
+                // color: Colors.green,
+                  child: Column(
+                children: [
+ 
+                  SizedBox(height: 50),
+                  Row(
+                    children: [
+                      Container(
+                        color: Color(0xff694ba1),
+                          child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1), 
+                          child: categoryRow(),
+                        ),
+                      ),
+                      SizedBox(width: 200),           
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    height: 80,
+                    child: ListView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      itemCount: categories.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return categoryTile(
+                          title: categories[index].categoriesName,
+                          imgUrl: categories[index].imgUrl,
+                        );
+                      },
                     ),
                   ),
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Search(
-                                      searchQuery: searchController.text,
-                                    )
-                                    )
-                                    );
-                      },
-                      child: Container(
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                        ),
-                      ))
+                  SizedBox(height: 16),
+                  
+                  wallpapersList(wallpapers: wallpapers, context: context),
+                  // wallpapersNewList(wallpapers: wallpapers, context: context),
                 ],
-              ),
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                categoryRow(),
-                SizedBox(width: 200),           
-              ],
-            ),
-            SizedBox(height: 16),
-            Container(
-              height: 80,
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                itemCount: categories.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return categoryTile(
-                    title: categories[index].categoriesName,
-                    imgUrl: categories[index].imgUrl,
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: 16),
+              )),
             
-            wallpapersList(wallpapers: wallpapers, context: context),
-            // wallpapersNewList(wallpapers: wallpapers, context: context),
           ],
-        )),
+        ),
       ),
     );
   }
